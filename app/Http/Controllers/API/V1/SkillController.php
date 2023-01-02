@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class SkillController extends Controller
 {
     public function index() {
-        return new SkillCollection(Skill::paginate(2));
+        return new SkillCollection(Skill::all());
     }
 
     public function store(StoreSkillRequest $request) {
