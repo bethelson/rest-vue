@@ -1,8 +1,8 @@
 import { ref } from "vue";
-import axios from 'axios';
+import axios from "axios";
 import { useRouter } from 'vue-router';
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1/skills";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1/";
 
 export default function useSkills() {
 
@@ -17,13 +17,13 @@ const getSkills = async () => {
 };
 
 const getSkill = async (id) => {
-    const response = await axios.get("skills" + id);
+    const response = await axios.get("skills/" + id);
     skill.value = response.data.data;
 };
 
 const storeSkill = async (data) => {
     try {
-        await axios.post("skills", data);     
+        await axios.post("skills/", data);     
         await router.push({name: "skillIndex"})
     } catch (error) {
         if(error.response.status === 422) {
@@ -32,7 +32,33 @@ const storeSkill = async (data) => {
     }
 }
 
-    return {
+const updateSkill = async (id) =>{
+    try {
+        await axios.put("skills/" + id, skill.value);
+        await router.push({name: "skillIndex"});
+    } catch (error) {
+        if(error.response.status === 422) {
+            errors.value = error.response.data.errors;
+        }
+    }
+};
 
+const destroySkill = async (id) => {
+    if (!window.confirm("Are you sure")) {
+        return;
+    }
+    await axios.delete("skill/" + id);
+    await getSkill();
+}
+
+    return {
+        skill,
+        skills,
+        getSkill,
+        getSkills,
+        storeSkill,
+        updateSkill,
+        destroySkill,
+        errors,
     }
 }
