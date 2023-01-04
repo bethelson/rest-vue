@@ -23,8 +23,8 @@ const getSkill = async (id) => {
 
 const storeSkill = async (data) => {
     try {
-        await axios.post("skills/", data);     
-        await router.push({name: "skillIndex"})
+        await axios.post("skills", data);     
+        await router.push({ name: "SkillIndex" });
     } catch (error) {
         if(error.response.status === 422) {
             errors.value = error.response.data.errors;
@@ -35,7 +35,7 @@ const storeSkill = async (data) => {
 const updateSkill = async (id) =>{
     try {
         await axios.put("skills/" + id, skill.value);
-        await router.push({name: "skillIndex"});
+        await router.push({ name: "SkillIndex" });
     } catch (error) {
         if(error.response.status === 422) {
             errors.value = error.response.data.errors;
