@@ -2,14 +2,16 @@
     import useSkills from '../../composable/skills';
     import { onMounted } from "vue";
 
-    const { skills, getSkills } = useSkills();
+    const { skills, errors,  getSkills } = useSkills();
 
     onMounted(() => getSkills());
 
 </script>
 <template>
     <div class="mt-12">
-        
+        <div class="flex justify-end m-2 p-2">
+            <RouterLink :to="{name: 'SkillCreate'}" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded ">New Skill</RouterLink>
+        </div>
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
